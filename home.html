@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ArcABAleno | Analisi comportamentale a Bergamo</title>
+<meta name="description" content="Studio di analisi comportamentale applicata a Bergamo: ABA, autismo, supporto alle famiglie.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --red:#e8373d; --green:#0BAF83; --amber:#e4a40f; --blue:#1a5fb4;
+  --ink:#1f2933; --muted:#52606d; --paper:#fff; --tint:#f6f8fb;
+  --serif:"Fraunces",Georgia,serif; --sans:"Nunito Sans",system-ui,sans-serif;
+  --nav-h:72px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:var(--nav-h)}
+body{margin:0;font:400 1.05rem/1.65 var(--sans);color:var(--ink);background:var(--paper)}
+img{max-width:100%;display:block}
+a{color:var(--blue)}
+h1,h2,h3,h4{font-family:var(--serif);line-height:1.2;margin:0 0 .6em}
+h2{font-size:clamp(1.8rem,4vw,2.6rem)}
+h3{font-size:1.25rem}
+p{margin:0 0 1em;max-width:68ch}
+.wrap{width:min(1120px,100% - 2.5rem);margin-inline:auto}
+section{padding:4.5rem 0}
+.alt{background:var(--tint)}
+:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+
+/* rainbow rule: the one recurring motif */
+.band{height:6px;background:linear-gradient(90deg,var(--red) 0 25%,var(--amber) 0 50%,var(--green) 0 75%,var(--blue) 0)}
+
+/* header: always white, text always dark, so it is readable over the banner and after scrolling */
+header{position:fixed;inset:0 0 auto;z-index:50;background:#fff;box-shadow:0 1px 0 #e4e7eb}
+.nav{display:flex;align-items:center;justify-content:space-between;height:var(--nav-h)}
+.nav img{height:47px;width:auto}
+.menu{display:flex;gap:.25rem;list-style:none;margin:0;padding:0}
+.menu a{display:block;padding:.6rem .8rem;color:var(--ink);text-decoration:none;font-weight:600}
+.menu a:hover,.menu a:focus-visible{color:var(--red)}
+.menu li{position:relative}
+.sub{display:none;position:absolute;left:0;top:100%;min-width:12rem;background:#fff;list-style:none;margin:0;padding:.4rem 0;box-shadow:0 8px 24px rgba(0,0,0,.12);border-top:3px solid var(--red)}
+.menu li:hover>.sub,.menu li:focus-within>.sub{display:block}
+.burger{display:none;background:none;border:0;font-size:1.8rem;line-height:1;padding:.4rem .6rem;cursor:pointer;color:var(--ink)}
+@media(max-width:1000px){
+  .burger{display:block}
+  .menu{display:none;position:absolute;left:0;right:0;top:var(--nav-h);flex-direction:column;background:#fff;padding:.5rem 1.25rem 1rem;box-shadow:0 8px 24px rgba(0,0,0,.12)}
+  .menu.open{display:flex}
+  .sub{display:block;position:static;box-shadow:none;border:0;padding:0 0 0 1rem}
+}
+
+/* hero */
+.hero{min-height:88vh;display:grid;align-items:center;color:#fff;padding:calc(var(--nav-h) + 3rem) 0 4rem;
+  background:linear-gradient(rgba(16,42,80,.62),rgba(16,42,80,.62)),url(https://arcabaleno.com/wp-content/uploads/2023/06/foto-iniziale.jpg) center/cover var(--blue)}
+.hero h1{font-size:clamp(2.8rem,9vw,5.5rem);letter-spacing:.02em;margin-bottom:.2em}
+.hero .kicker{font-size:1.2rem;margin:0 0 .4rem}
+.hero p.lead{font-size:1.25rem;max-width:36ch}
+.btn{display:inline-block;background:var(--red);color:#fff;text-decoration:none;font-weight:700;padding:.8rem 1.6rem;border-radius:999px;border:0;font:inherit;font-weight:700;cursor:pointer}
+.btn:hover{background:#c92c32}
+
+/* flip cards: equal height by construction, list is real HTML */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.25rem}
+.flip{position:relative;min-height:340px;perspective:900px;outline-offset:4px}
+.face{position:absolute;inset:0;border-radius:12px;color:#fff;background:var(--c);overflow:hidden;backface-visibility:hidden;transition:transform .6s;display:flex;flex-direction:column}
+.face h3{padding:1.25rem 1.25rem 0;margin:0;color:#fff}
+.face img{margin-top:auto;width:100%;height:188px;object-fit:cover}
+.back{transform:rotateY(180deg);padding:1.1rem;justify-content:center;font-size:.95rem;line-height:1.5}
+.back p{margin:0 0 .6em}
+.back h4{font-family:var(--sans);font-size:.95rem;margin:.6rem 0 .2rem}
+.back ul{margin:0 0 .4rem;padding-left:1.1rem}
+.flip:hover .front,.flip:focus-within .front,.flip:focus .front{transform:rotateY(-180deg)}
+.flip:hover .back,.flip:focus-within .back,.flip:focus .back{transform:rotateY(0)}
+@media(prefers-reduced-motion:reduce){.face{transition:none}}
+
+/* about */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
+.two img{border-radius:12px;width:100%}
+@media(max-width:800px){.two{grid-template-columns:1fr}}
+.checks{padding-left:1.2rem}
+
+/* services */
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem 2rem}
+.svc{border-top:4px solid var(--c,var(--red));padding-top:.8rem}
+.svc p{font-size:.98rem;color:var(--muted)}
+
+/* projects */
+.proj{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem}
+.proj article{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.1)}
+.proj img{width:100%;height:200px;object-fit:cover}
+.proj div{padding:1.1rem 1.25rem}
+.proj p{font-size:.98rem;color:var(--muted)}
+
+/* contact */
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:3rem}
+@media(max-width:800px){.contact{grid-template-columns:1fr}}
+form{display:grid;gap:.9rem}
+label{font-weight:700;font-size:.95rem}
+input,textarea{width:100%;font:inherit;padding:.7rem .8rem;border:1px solid #c5ccd3;border-radius:8px;margin-top:.25rem}
+textarea{min-height:140px}
+footer{background:#10294d;color:#dfe7f3;padding:2.5rem 0;font-size:.95rem}
+footer a{color:#fff}
+.foot{display:flex;flex-wrap:wrap;gap:2rem;justify-content:space-between}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="#top"><img src="https://arcabaleno.com/wp-content/uploads/2023/05/Logo-Transparent3.png" alt="ArcABAleno" width="220" height="47"></a>
+    <button class="burger" aria-label="Apri il menu" aria-expanded="false" aria-controls="menu">&#9776;</button>
+    <ul class="menu" id="menu">
+      <li><a href="#top">Home</a></li>
+      <li><a href="#chi-siamo">Il Centro</a>
+        <ul class="sub"><li><a href="#chi-siamo">ABA</a></li><li><a href="#staff">Staff</a></li></ul></li>
+      <li><a href="#attivita">Attività</a></li>
+      <li><a href="#progetti">Progetti</a></li>
+      <li><a href="#sedi">Le nostre sedi</a></li>
+      <li><a href="#contatti">Contatti</a></li>
+    </ul>
+  </div>
+  <div class="band"></div>
+</header>
+
+<main id="top">
+<div class="hero">
+  <div class="wrap">
+    <p class="kicker">Benvenuti in</p>
+    <h1>ARCABALENO</h1>
+    <p class="lead">Studio di analisi comportamentale applicata dove si accolgono i Colori in tutte le loro sfumature e le loro famiglie.</p>
+    <a class="btn" href="#contatti">Contatti</a>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <h2>Come lavoriamo</h2>
+    <p>Passa il mouse sulle schede (o toccale) per leggere di più.</p>
+    <div class="cards">
+      <div class="flip" tabindex="0" style="--c:var(--blue)">
+        <div class="face front"><h3>Vi siete mai chiesti cosa sia l’ABA?</h3><img src="https://arcabaleno.com/wp-content/uploads/2023/06/Progetto-gruppo-sociale-350x188.jpg" alt="" loading="lazy"></div>
+        <div class="face back"><p>L’Applied Behavior Analysis (Analisi Comportamentale Applicata) deriva dalla scienza dell’analisi del comportamento, che studia le interazioni psicologiche tra l’individuo e l’ambiente.</p></div>
+      </div>
+      <div class="flip" tabindex="0" style="--c:var(--red)">
+        <div class="face front"><h3>Chi coinvolgiamo nel percorso di crescita?</h3><img src="https://arcabaleno.com/wp-content/uploads/2023/06/progetto-naturaba-350x188.jpg" alt="" loading="lazy"></div>
+        <div class="face back"><p>Formiamo e supportiamo genitori, docenti e operatori per condividere strategie efficaci e creare un'alleanza educativa solida.</p></div>
+      </div>
+      <div class="flip" tabindex="0" style="--c:var(--green)">
+        <div class="face front"><h3>Interventi individualizzati ad hoc</h3><img src="https://arcabaleno.com/wp-content/uploads/2023/06/psicomotricita-350x188.jpg" alt="" loading="lazy"></div>
+        <div class="face back">
+          <h4>Fascia età 2-12 anni</h4>
+          <ul><li>Denver model</li><li>ABA</li><li>Sostegno emotivo</li><li>Interventi comportamentali</li><li>Gruppetti sociali</li></ul>
+          <h4>Fascia età 12-18 anni</h4>
+          <ul><li>Progetto autonomie</li><li>Progetto sport</li><li>Gruppo sociale</li><li>Sostegno emotivo</li></ul>
+        </div>
+      </div>
+      <div class="flip" tabindex="0" style="--c:#b8810a">
+        <div class="face front"><h3>A chi è rivolto l'ABA?</h3><img src="https://arcabaleno.com/wp-content/uploads/2023/06/arcabalenoo-progetto-out-1.jpg" alt="" loading="lazy"></div>
+        <div class="face back"><p>L’attenzione dell’ABA è rivolta ai comportamenti socialmente significativi (abilità scolastiche, sociali, comunicative, adattive): è adatta a qualsiasi ambito di intervento, non, come si pensa erroneamente, solo all’autismo.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="alt" id="chi-siamo">
+  <div class="wrap two">
+    <div>
+      <h2>Chi siamo</h2>
+      <h3>La nostra missione</h3>
+      <p>Il Centro “ArcABAleno” nasce nel 2013 dal desiderio di due analiste del comportamento e di una psicologa di creare uno spazio per accogliere le fragilità dei bambini e delle loro famiglie, unendo il metodo dell’analisi del comportamento applicata a un approccio più generale e a un sostegno diretto alle famiglie.</p>
+      <p>Sin dagli esordi, tre principi caratterizzano il nostro lavoro:</p>
+      <ul class="checks">
+        <li>Presenza di uno staff multidisciplinare</li>
+        <li>Formazione e supervisione continua sulle metodologie di intervento proposte</li>
+        <li>Presa in carico a 360° dei nostri utenti</li>
+      </ul>
+      <p><a class="btn" href="#sedi">Vienici a trovare</a></p>
+    </div>
+    <img src="https://arcabaleno.com/wp-content/uploads/2023/06/arcabalenoo-progetto-out-1.jpg" alt="Attività al centro ArcABAleno" loading="lazy">
+  </div>
+</section>
+
+<section id="attivita">
+  <div class="wrap">
+    <h2>Cosa facciamo</h2>
+    <div class="grid3">
+      <div class="svc" style="--c:var(--red)"><h3>Interventi individualizzati</h3><p>ArcABAleno si occupa dello sviluppo e del coordinamento di progetti di trattamento intensivo.</p></div>
+      <div class="svc" style="--c:var(--amber)"><h3>Valutazioni esterne</h3><p>Sessioni di valutazione guidate dalla Dott.ssa Francesca degli Espinosa e supervisionate dalla Dott.ssa Alma Metko, BCBA.</p></div>
+      <div class="svc" style="--c:var(--green)"><h3>Tutoraggio DSA/ADHD</h3><p>Il Tutor DSA / ADHD è un professionista specializzato nei Disturbi Specifici dell’Apprendimento.</p></div>
+      <div class="svc" style="--c:var(--blue)"><h3>Sostegno ai genitori</h3><p>Un percorso psicologico di accompagnamento per i genitori che affrontano ogni giorno difficoltà e sfide.</p></div>
+      <div class="svc" style="--c:var(--red)"><h3>Collaborazione con la scuola</h3><p>Formazione e supervisione, perché la scuola è il luogo dove i bambini passano la maggior parte del tempo.</p></div>
+      <div class="svc" style="--c:var(--amber)"><h3>Collaborazione logopedia</h3><p>Il centro collabora da anni con logopedisti e psicomotricisti.</p></div>
+      <div class="svc" style="--c:var(--green)"><h3>Supervisione</h3><p>Supervisione e formazione costante per migliorare sempre la qualità del servizio.</p></div>
+      <div class="svc" style="--c:var(--blue)"><h3>Affiancamento all'attività sportiva</h3><p>Osservazioni dirette nel contesto specifico e supporto al personale sportivo che accompagna i ragazzi.</p></div>
+      <div class="svc" style="--c:var(--red)"><h3>Servizio prelievi del sangue</h3><p>Un servizio di prelievo presso il centro con l’infermiera Giulia, pensato per i bambini che faticano ad affrontare contesti sanitari.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="alt" id="progetti">
+  <div class="wrap">
+    <h2>I nostri progetti</h2>
+    <div class="proj">
+      <article><img src="https://arcabaleno.com/wp-content/uploads/2023/06/arcabaleno-progetto-intensaba.jpg" alt="" loading="lazy"><div><h3>IntensABA</h3><p>Una volta all’anno, di solito in estate: tre mezze giornate strutturate in cui le figure di riferimento di ogni bambino condividono e lavorano insieme su obiettivi diversi.</p></div></article>
+      <article><img src="https://arcabaleno.com/wp-content/uploads/2023/06/arcabaleno-gruppi-sociali-progetti.jpg" alt="" loading="lazy"><div><h3>Gruppi sociali</h3><p>Momenti strutturati con i pari, tra giochi, merenda e scambi sociali, per costruire competenze sociali e metacognizione.</p></div></article>
+      <article><img src="https://arcabaleno.com/wp-content/uploads/2023/06/arcabaleno-progetto-out.jpeg" alt="" loading="lazy"><div><h3>Progetto Out</h3><p>Uscite e attività sul territorio in piccolo gruppo con le terapiste: comunicazione, orientamento, comportamento stradale, uso del denaro e dei servizi.</p></div></article>
+      <article><img src="https://arcabaleno.com/wp-content/uploads/2024/02/1705849687486.jpg" alt="" loading="lazy"><div><h3>NaturABA</h3><p>Mini gite estive di 1-2 giorni nella natura per lavorare su abilità sociali, competenza emotiva e autonomie personali.</p></div></article>
+      <article><img src="https://arcabaleno.com/wp-content/uploads/2024/01/1705835467441-e1705836123257.jpg" alt="" loading="lazy"><div><h3>ColorCREiamo</h3><p>Il progetto estivo dedicato ai colori e alle loro sfumature, tra gioco, relax, creatività e merende condivise.</p></div></article>
+      <article><img src="https://arcabaleno.com/wp-content/uploads/2024/05/spesa.jpeg" alt="" loading="lazy"><div><h3>Laboratorio di cucina</h3><p>Socializzazione con i pari, autonomie personali e domestiche attraverso la cucina.</p></div></article>
+    </div>
+  </div>
+</section>
+
+<section id="staff">
+  <div class="wrap two">
+    <div>
+      <h2>Il nostro staff</h2>
+      <h3>Conosci il nostro team</h3>
+      <p>L’intervento ABA richiede un’équipe multidisciplinare in grado di affrontare la complessità della relazione tra individuo e contesto. Figure sanitarie e non, ognuna con le proprie competenze, lavorano in sinergia alla progettazione e alla realizzazione dell’intervento.</p>
+      <ul class="checks">
+        <li>Ognuna di noi è specializzata in un’area specifica</li>
+        <li>Siamo un’équipe che collabora in stretto contatto da anni</li>
+        <li>Ci caratterizza il desiderio di non stancarsi mai di imparare</li>
+      </ul>
+    </div>
+    <img src="https://arcabaleno.com/wp-content/uploads/2023/06/arcabaleno-staff-rotated.jpg" alt="Lo staff di ArcABAleno" loading="lazy">
+  </div>
+</section>
+
+<section class="alt" id="contatti">
+  <div class="wrap contact">
+    <div id="sedi">
+      <h2>Contatti</h2>
+      <h3>Puoi scriverci</h3>
+      <p><a href="mailto:info.arcabaleno@gmail.com">info.arcabaleno@gmail.com</a></p>
+      <h3>Puoi venire a trovarci</h3>
+      <p>Via Campagnola 40b, 24126 Bergamo, citofono 016<br>Via per Carpiano 2, 20077 Melegnano (MI)</p>
+      <h3>Puoi chiamarci</h3>
+      <p>Alma <a href="tel:+393272069553">+39 327 206 9553</a><br>Giulia <a href="tel:+393386454253">+39 338 645 4253</a></p>
+      <h3>Orario di lavoro</h3>
+      <p>Da lunedì a venerdì, dalle 9:00 alle 18:00. Chiuso nei festivi e nel fine settimana.</p>
+    </div>
+    <!-- Replace the action with your form service endpoint (Formspree, Netlify Forms, ...) -->
+    <form action="https://formspree.io/f/YOUR_FORM_ID" method="post">
+      <label>Nome *<input name="nome" required autocomplete="name"></label>
+      <label>Indirizzo e-mail *<input type="email" name="email" required autocomplete="email"></label>
+      <label>Oggetto<input name="oggetto"></label>
+      <label>Messaggio *<textarea name="messaggio" required></textarea></label>
+      <button class="btn" type="submit">Invia messaggio</button>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="band" style="margin:-2.5rem 0 2.5rem"></div>
+  <div class="wrap foot">
+    <div>
+      <strong>ArcABAleno</strong><br>
+      Studio di Analisi Comportamentale Applicata dove si accolgono i Colori in tutte le loro sfumature e le loro famiglie.
+    </div>
+    <div>
+      <a href="https://www.facebook.com/people/Studio-Arcabaleno/100092984570217/">Facebook</a> ·
+      <a href="https://www.instagram.com/studio_arcabaleno/">Instagram</a><br>
+      <a href="tel:+393517967622">+39 351 796 7622</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+const b=document.querySelector('.burger'),m=document.getElementById('menu');
+b.addEventListener('click',()=>{const o=m.classList.toggle('open');b.setAttribute('aria-expanded',o)});
+m.addEventListener('click',e=>{if(e.target.tagName==='A'){m.classList.remove('open');b.setAttribute('aria-expanded','false')}});
+</script>
+</body>
+</html>
